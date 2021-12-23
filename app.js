@@ -16,14 +16,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-// The Arrays that where previously used to store DATA
-// let items = ["Buy Food", "Cook Food", "Eat Food"];
-// let workItems = [];
-
-//mongoose connection version 3, for local host db
-// mongoose.connect("mongodb://localhost:27017/todolistDB");
-
-//mongoose connection version 4 for cloud version
 mongoose.connect("mongodb+srv://Admin-Gerald:test321@helix.vzrxf.mongodb.net/todolistDB");
 
 //impliment schema
@@ -57,10 +49,6 @@ const listSchema = {
 
 const List = mongoose.model("List", listSchema);
 
-// Previous way of adding item
-
-
-// get data back from browser
 app.get("/", function(req, res){
 
     Item.find({}, function(err, foundItems){
@@ -89,8 +77,7 @@ app.get("/:customListName", function(req, res){
     List.findOne({name: customListName}, function(err, foundList){
         if (!err){
             if(!foundList){
-                // console.log("Doesn't exist!"); 
-                //Create a new list
+                 //Create a new list
 
                 const list = new List({
                     name: customListName,
@@ -99,8 +86,6 @@ app.get("/:customListName", function(req, res){
                 list.save();
                 res.redirect("/" + customListName);
             } else {
-                // console.log("Exist!");
-                //Show an existing list
                 res.render("list", {listTitle: foundList.name, newListItems: foundList.items});
             }    
         }     
@@ -108,19 +93,7 @@ app.get("/:customListName", function(req, res){
     });
 });
 
-// comment out date function
-
-// app.get("/", function(req, res){
-//     let day = date.getDate();
-
-//     res.render("list", {
-//         listTitle: day, newListItems: items});
-
-// });
-
 app.post("/", function (req, res){
-    //we don't need to see what req.body is
-    // console.log(req.body);
 
     //from list.ejs
     const itemName = req.body.newItem;
@@ -167,27 +140,6 @@ app.post("/delete", function(req, res){
 
 });
 
-// app.get("/work", function(req, res){
-//     res.render("list", {
-//         listTitle: "Work List", newListItems: workItems});
-// });
-
-// app.post("/work", function(req, res){
-//     let item = req.body.newItem;
-//     workItems.push(item);
-//     res.redirect("/work");
-// })  
-
-// app.get("/about", function(req, res){
-//     res.render("about")
-// });
-
-
-// app.listen(process.env.PORT ||3000, function(){
-//     console.log("Secer started on port 3000.")
-// });
-
-//Gotten from heroku might be slightly larger tha previous connection code.
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;

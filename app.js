@@ -140,7 +140,6 @@ app.post("/delete", function(req, res){
 
 });
 
-<<<<<<< HEAD
 // app.get("/work", function(req, res){
 //     res.render("list", {
 //         listTitle: "Work List", newListItems: workItems});
@@ -162,8 +161,6 @@ app.get("/about", function(req, res){
 // });
 
 //Gotten from heroku might be slightly larger tha previous connection code.
-=======
->>>>>>> 027f0a4267a238c7c7064fa7f0cdf08a3fecdf6d
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;
